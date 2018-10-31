@@ -1,3 +1,3 @@
 module.exports = {
-    ADMIN_PATH : '/admin'
+    ADMIN_PATH : '/static/admin'
 };
