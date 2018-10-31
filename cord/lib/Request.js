@@ -18,7 +18,7 @@ module.exports = class Request {
     static location(source, destination, code) {
         this.ctx.redirect(source, destination, code);
     }
-
+    
     /* 输出参数 */
     static get() {
         return this.request.query;

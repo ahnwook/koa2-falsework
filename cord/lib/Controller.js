@@ -11,7 +11,7 @@ module.exports = class Controller {
     fetch(temp) {
         temp = temp || '';
         this.temp = temp;
-        return {temp: this.temp, data: this.data};
+        return {isTemp: true, temp: this.temp, data: this.data};
     }
 
     //写入到页面

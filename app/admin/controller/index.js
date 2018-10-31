@@ -1,26 +1,29 @@
-const Controller = require('../../../cord/controller/Controller');
-module.exports = class IndexController extends Controller{
-    constructor(){
+const Controller = require('../../../cord/lib/Controller');
+const Request = require('../../../cord/lib/Request');
+module.exports = class IndexController extends Controller {
+    constructor() {
         super();
     }
-    index(){
-        let username = Request.post()['username'];
-        let password = Request.post()['password'];
-        if (username === 'admin') {
-            this.assign('title', '');
-            return this.fetch('admin/index');
-        }else{
-            // Request.location('/admin/index/login');
-        }
+
+    index() {
+        this.assign('title', '平台');
+        return this.fetch('admin/index');
     }
-    login(){
-        this.assign('title', '');
-        return this.fetch('admin/login');
-        // return `<h1>${Request.input('addd','mmm')}</h1>
-        // <form action="/admin/index/index" method="post">
-        //     <p>Name: <input name="username" value="koa"></p>
-        //     <p>Password: <input name="password" type="password"></p>
-        //     <p><input type="submit" value="Submit"></p>
-        // </form>`;
+
+    login() {
+        if (Request.request.method === 'POST') {
+            let username = Request.post()['username'];
+            let password = Request.post()['password'];
+            if (username === 'admin' && password === 'admin123') {
+                return {errorcode: 0, msg: 'success', data: {url: '/admin/index/index'}};
+            } else if (username === 'admin' && password !== 'admin123') {
+                return {errorcode: 2, msg: '密码错误', data: {}};
+            } else {
+                return {errorcode: 1, msg: 'error', data: {}};
+            }
+        } else {
+            this.assign('title', '登录');
+            return this.fetch('admin/login');
+        }
     }
 };
