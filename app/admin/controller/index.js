@@ -6,8 +6,13 @@ module.exports = class IndexController extends Controller {
     }
 
     index() {
-        this.assign('title', '平台');
-        return this.fetch('admin/index');
+        if (Request.getSession('user')) {
+            this.assign('title','平台');
+            this.assign('user',Request.getSession('user'));
+            return this.fetch('admin/index');
+        }else{
+            Request.location('/admin/index/login');
+        }
     }
 
     login() {
@@ -15,6 +20,7 @@ module.exports = class IndexController extends Controller {
             let username = Request.post()['username'];
             let password = Request.post()['password'];
             if (username === 'admin' && password === 'admin123') {
+                Request.setSession('user', username);
                 return {errorcode: 0, msg: 'success', data: {url: '/admin/index/index'}};
             } else if (username === 'admin' && password !== 'admin123') {
                 return {errorcode: 2, msg: '密码错误', data: {}};
@@ -25,5 +31,9 @@ module.exports = class IndexController extends Controller {
             this.assign('title', '登录');
             return this.fetch('admin/login');
         }
+    }
+    outLogin(){
+        Request.delSession('user');
+        return {errorcode: 0, msg: '退出成功', data: {url: '/admin/index/login'}};
     }
 };

@@ -36,9 +36,11 @@ let routerHandle = async (ctx, next) => {
         }
     }
 };
+//默认路由
 router.get("/", async (ctx, next) => {
     ctx.redirect(`${config.defaultModule.m}/${config.defaultModule.c}/${config.defaultModule.a}`);
 });
+//路由类型
 router.get("/:m/:c/:a", routerHandle);
 router.post('/:m/:c/:a', routerHandle);
 
