@@ -3,6 +3,7 @@ module.exports = class IndexHandle {
 
     }
     async index(ctx, next){
+        
         await ctx.render('index', {title:ctx.query.title});
     }
     async login(ctx, next){
