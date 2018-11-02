@@ -22,7 +22,7 @@ app.use(views(__dirname + '/views', {
     extension: 'ejs'
 }))
 
-app.use(start.err);
+// app.use(start.err);
 app.use(start.logger);
 app.keys = start.keys;
 app.use(start.setSession(app));
